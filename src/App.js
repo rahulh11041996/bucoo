@@ -3,38 +3,14 @@ import StoreContext from './Store/StoreContext';
 import React from 'react';
 import { Router } from './Components/Router/Router';
 import SnackBar from './Shared/Components/SnackBar/SnackBar';
+import { DEFAULT_BOOKDATA_STATE, DEFAULT_SNACKBAR_STATE, UPDATED_BOOK_SNACKBAR_MESSAGE } from './Shared/Data/data';
 
-const defaultBookData = [
-  {
-    bookId: 'red_white002',
-    bookName: 'Red, White & Royal Blue',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic',
-    pages: '432',
-    language: 'English',
-    weight: '12.8 ounces',
-    publisher: 'Griffin, 2019',
-    price: '300',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/71skR7IaVEL.jpg',
-    authorName: 'Casey McQuiston',
-    country: 'New York',
-    aboutAuthor: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
-    authorImage: 'https://images.gr-assets.com/authors/1608160367p5/17949486.jpg'
-  }
-]
-
-const _defualtSnackbarState = {
-  isShow: false,
-  snackbarContent: '',
-  bookName: ''
-}
-
-const _updatedBookDetailsSnackbarContent =  'details is updated sucessfully';
 
 function App() {
 
-  const [booksData, setBooksData] = React.useState(defaultBookData);
+  const [booksData, setBooksData] = React.useState(DEFAULT_BOOKDATA_STATE);
 
-  const [showSnackbar, setShowSnackbar] = React.useState(_defualtSnackbarState);
+  const [showSnackbar, setShowSnackbar] = React.useState(DEFAULT_SNACKBAR_STATE);
 
 
   const onAddBook = (bookData) => {
@@ -52,12 +28,12 @@ function App() {
   }
 
   const onEditdetails = (bookId, bookDetail) => {
-    showSnackbar.isShow && setShowSnackbar(_defualtSnackbarState);
+    showSnackbar.isShow && setShowSnackbar(DEFAULT_SNACKBAR_STATE);
     let bookRef = booksData;
     const index = bookRef.findIndex((book) => book.bookId === bookId);
     bookRef[index] = bookDetail;
     setBooksData(bookRef);
-    setShowSnackbar({ isShow: true, snackbarContent: _updatedBookDetailsSnackbarContent, bookName: bookDetail.bookName});
+    setShowSnackbar({ isShow: true, snackbarContent: UPDATED_BOOK_SNACKBAR_MESSAGE, bookName: bookDetail.bookName});
   }
 
   return (
@@ -69,7 +45,7 @@ function App() {
       editBookDetails : onEditdetails
     }}>
       <Router />
-      {showSnackbar.isShow && <SnackBar snackBarContent={showSnackbar} clearSnackBar={() => setShowSnackbar(_defualtSnackbarState)} /> }
+      {showSnackbar.isShow && <SnackBar snackBarContent={showSnackbar} clearSnackBar={() => setShowSnackbar(DEFAULT_SNACKBAR_STATE)} /> }
     </StoreContext.Provider>
   );
 }

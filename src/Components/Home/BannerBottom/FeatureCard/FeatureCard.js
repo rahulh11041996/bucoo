@@ -1,4 +1,5 @@
 import React from 'react';
+import { DICTIONARY } from '../../../../Shared/Data/data';
 
 export default function FeatureCard(props) {
   return <div className='feature_card'>
@@ -7,9 +8,7 @@ export default function FeatureCard(props) {
       </div>
       <div className="feature_description">
           <h3>{props.type}</h3>
-          <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium perspiciatis sint ab beatae, repellendus officiis laborum, ad quo maxime modi, voluptate ut aspernatur nobis. Non corporis magnam omnis aspernatur modi.
-          </p>
+          <p>{DICTIONARY.LOREM}</p>
       </div>
   </div>;
 }

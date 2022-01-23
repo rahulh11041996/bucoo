@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteModal from '../../../Shared/Components/DeleteModal/DeleteModal';
 import Modal from '../../../Shared/Components/Modal/Modal';
+import { DICTIONARY } from '../../../Shared/Data/data';
 import StoreContext from '../../../Store/StoreContext';
 
 export const SingleBook = (props) => {
@@ -33,13 +34,13 @@ export const SingleBook = (props) => {
             <h1>{props.bookName}</h1>
             <p>{props.description}</p>
             <div className='links_wrapper'>
-                <Link to={`/booklist/${props.bookId}`}>View Details</Link>
+                <Link to={`/booklist/${props.bookId}`}>{DICTIONARY.VIEW_DETAILS}</Link>
                 <Link to={`/booklist/${props.bookId}/edit`} className='edit_button icon_button'><i className="fas fa-edit"></i></Link>
                 <button onClick={() => setShowModal(true)} className='delete_button icon_button'><i className="fas fa-trash-alt"></i></button>
             </div>
         </div>
     </div>
-        <Modal modalTitle="Delete Book" isShow={showModal} onSecondaryButtonClicked={onSecondaryButtonClicked} onPrimaryButtonClicked={onPrimaryButtonClicked} onClose={()=> setShowModal(false)}>
+        <Modal modalTitle={DICTIONARY.DELETE_BOOK_BUTTON} isShow={showModal} onSecondaryButtonClicked={onSecondaryButtonClicked} onPrimaryButtonClicked={onPrimaryButtonClicked} onClose={()=> setShowModal(false)}>
             <DeleteModal deletedItem={props.bookName}/>
         </Modal>
     </>;
