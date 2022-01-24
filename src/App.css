@@ -529,6 +529,7 @@ icon_button i {
   box-shadow: 0 2px 10px rgba(157, 146, 146, 0.05);
 }
 
+.no_details h1,
 .no_data h1,
 .delete_confirmation {
   font-size: 2.6rem;
@@ -651,6 +652,7 @@ icon_button i {
 .banner_left {
   width: 60%;
   padding: 10rem;
+  position: relative;
 }
 
 .banner_left h4 {
@@ -776,4 +778,87 @@ icon_button i {
   font-size: 3.6rem;
   color: #f57268;
   padding: 4rem 4rem 2rem;
+}
+
+.no_details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.no_details h1 {
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.no_details i {
+  font-size: 4rem;
+  color: #bfbfbf;
+}
+
+.search_wrapper {
+  position: absolute;
+  top: 0;
+  left: 10rem;
+}
+
+.search_box
+{
+  position: relative;
+}
+
+.search_result {
+  position: absolute;
+  top: 4.6rem;
+  width: 100%;
+  background: #fff;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.125);
+}
+
+.search_result a {
+  padding: 0.8rem 1rem;
+  font-size: 2rem;
+  text-decoration: none;
+    color: #293249ac;
+}
+
+.search_box input {
+  width: 32rem;
+}
+
+.search_result a:hover {
+  background: rgba(209, 208, 208, 0.188);
+  color: #f25d4e;
+}
+
+.search_box input{
+  border: 1px solid rgba(242, 93, 78, 0.314);
+}
+
+.search_box input::placeholder {
+  opacity: 0.45;
+  font-weight: 100;
+}
+
+.search_box input:focus {
+   border: 1px solid rgba(242, 93, 78, 0.565);
+}
+
+.no_search_result {
+  font-size: 2.4rem !important;
+  padding-top: 0.4rem;
+  text-align: center;
+  line-height: 20px;
+  color: #29324960 !important;
+  pointer-events: none;
+}
+
+.no_search_result i {
+  font-size: 1.4rem !important;
+  padding-right: 0.4rem;
 }

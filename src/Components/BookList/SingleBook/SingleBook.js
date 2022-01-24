@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteModal from '../../../Shared/Components/DeleteModal/DeleteModal';
 import Modal from '../../../Shared/Components/Modal/Modal';
-import { DICTIONARY } from '../../../Shared/Data/data';
+import { ACTIONS, DICTIONARY, ICONS } from '../../../Shared/Data/data';
 import StoreContext from '../../../Store/StoreContext';
 
 export const SingleBook = (props) => {
@@ -14,12 +14,18 @@ export const SingleBook = (props) => {
     const [showModal, setShowModal] = React.useState(false);
 
 
+    /**
+     * Modal Primary button click handler
+     */
     const onPrimaryButtonClicked = () => {
         setShowModal(false);
-        bookStore.deleteBook(props.bookId);
+        bookStore.dispatchRef(ACTIONS.DELETE_BOOK, { bookId : props.bookId });
         navigate("../booklist", { replace: true });
     }
 
+    /**
+     * Modal secondary button click handler
+     */
     const onSecondaryButtonClicked = () => {
         setShowModal(false);
     }
@@ -35,8 +41,8 @@ export const SingleBook = (props) => {
             <p>{props.description}</p>
             <div className='links_wrapper'>
                 <Link to={`/booklist/${props.bookId}`}>{DICTIONARY.VIEW_DETAILS}</Link>
-                <Link to={`/booklist/${props.bookId}/edit`} className='edit_button icon_button'><i className="fas fa-edit"></i></Link>
-                <button onClick={() => setShowModal(true)} className='delete_button icon_button'><i className="fas fa-trash-alt"></i></button>
+                <Link to={`/booklist/${props.bookId}/edit`} className='edit_button icon_button'><i className={ICONS.EDIT}></i></Link>
+                <button onClick={() => setShowModal(true)} className='delete_button icon_button'><i className={ICONS.TRASH}></i></button>
             </div>
         </div>
     </div>

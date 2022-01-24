@@ -1,8 +1,10 @@
 import React from 'react';
+import bookShelf from '../../../Assets/Images/book-shelf.png'
+import { DICTIONARY } from '../../Data/data';
 
 export default function BookAddedModal() {
     return <>
-        <img alt='Delete Confirmation' className='delete_confirmation_image' src="https://img.icons8.com/cute-clipart/100/000000/book-shelf.png" />
-        <p className='delete_confirmation'>New book is successfully added to the book list. You can view the added book by clicking <b>"View Added Book"</b> button</p>
+        <img alt='Delete Confirmation' className='delete_confirmation_image' src={bookShelf} />
+        <p className='delete_confirmation'>{DICTIONARY.SUCCESSFULLY_ADDED} <b>"{DICTIONARY.VIEW_ADDED_BOOK}"</b> {DICTIONARY.BUTTON}</p>
     </>;
 }

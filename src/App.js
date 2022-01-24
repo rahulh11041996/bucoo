@@ -3,46 +3,62 @@ import StoreContext from './Store/StoreContext';
 import React from 'react';
 import { Router } from './Components/Router/Router';
 import SnackBar from './Shared/Components/SnackBar/SnackBar';
-import { DEFAULT_BOOKDATA_STATE, DEFAULT_SNACKBAR_STATE, UPDATED_BOOK_SNACKBAR_MESSAGE } from './Shared/Data/data';
+import { ACTIONS, DEFAULT_BOOKDATA_STATE, DEFAULT_SNACKBAR_STATE, UPDATED_BOOK_SNACKBAR_MESSAGE } from './Shared/Data/data';
 
+/**
+ * Reducer to manage state
+ */
+function reducer(state, action) {
+  switch(action.type) {
+    case ACTIONS.CREATE_NEW_BOOK:
+      return [...state, action.payload.updatedBook];
+    case ACTIONS.EDIT_BOOK:
+      {
+        let bookRef = state;
+        const index = bookRef.findIndex((book) => book.bookId === action.payload.bookId);
+        bookRef[index] = action.payload.bookDetail;
+        return bookRef;
+      }
+    case ACTIONS.DELETE_BOOK:
+      {
+        const newBookList = state.filter((book) => book.bookId !== action.payload.bookId);
+        return newBookList;
+      }
+    default:
+      return state;
+  }
+}
 
 function App() {
 
-  const [booksData, setBooksData] = React.useState(DEFAULT_BOOKDATA_STATE);
-
   const [showSnackbar, setShowSnackbar] = React.useState(DEFAULT_SNACKBAR_STATE);
 
+  const [booksData, dispatch ] = React.useReducer(reducer, DEFAULT_BOOKDATA_STATE);
 
-  const onAddBook = (bookData) => {
-    setBooksData((prevdata) => ([...prevdata, bookData]))
-  }
-
-
+  /**
+   * get the books data for selected id
+   * @param {book id} bookId 
+   * @returns 
+   */
   const onGetBook = (bookId) => {
     return booksData.filter((book) => book.bookId === bookId)
   }
 
-  const onDeleteBook = (bookId) => {
-    const newBookList = booksData.filter((book) => book.bookId !== bookId);
-    setBooksData(newBookList);
-  }
-
-  const onEditdetails = (bookId, bookDetail) => {
-    showSnackbar.isShow && setShowSnackbar(DEFAULT_SNACKBAR_STATE);
-    let bookRef = booksData;
-    const index = bookRef.findIndex((book) => book.bookId === bookId);
-    bookRef[index] = bookDetail;
-    setBooksData(bookRef);
-    setShowSnackbar({ isShow: true, snackbarContent: UPDATED_BOOK_SNACKBAR_MESSAGE, bookName: bookDetail.bookName});
+  /**
+   * Dispatcher to handle stet using reucer
+   * @param {reducer actions} type 
+   * @param {payload to manage state *} payload 
+   */
+  const dispatchAction = (type, payload) => {
+      dispatch({type, payload});
+      type === ACTIONS.EDIT_BOOK && setShowSnackbar({ isShow: true, snackbarContent: UPDATED_BOOK_SNACKBAR_MESSAGE, bookName: payload.bookDetail.bookName });
   }
 
   return (
     <StoreContext.Provider value={{
       bookStore: booksData,
-      addBooks: onAddBook,
-      getBookForId: onGetBook,
-      deleteBook : onDeleteBook,
-      editBookDetails : onEditdetails
+      dispatchRef: dispatchAction, 
+      getBookForId: onGetBook
     }}>
       <Router />
       {showSnackbar.isShow && <SnackBar snackBarContent={showSnackbar} clearSnackBar={() => setShowSnackbar(DEFAULT_SNACKBAR_STATE)} /> }

@@ -2,10 +2,18 @@ import React from 'react';
 
 export const TextArea = ({ error, col, placeholder, onFieldBlur, name, value }) => {
 
+    /**
+     * Field blur handler
+     * @param {field event } event 
+     */
     const onBlurHandler = (event) => {
         !(!!(event.target.value.trim())) && onFieldBlur(event.target.value, name)
     }
 
+    /**
+     * Onchange event handler
+     * @param {input event } event 
+     */
     const onChangeHanlder = (event) => {
         onFieldBlur(event.target.value, name)
     }
